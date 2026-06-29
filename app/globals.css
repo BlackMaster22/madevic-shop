@@ -1,27 +1,607 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ═══════════════════════════════════════════════════════════════
+   MADEVIC — Design Tokens (Tailwind v4 @theme)
+═══════════════════════════════════════════════════════════════ */
+@theme {
+  /* ── Fuentes ─────────────────────────────────────────────── */
+  --font-manrope: "Manrope", sans-serif;
+  --font-libre: "Libre Baskerville", serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* ── Superficies ─────────────────────────────────────────── */
+  --color-surface: #f2ead6;
+  --color-surface-dim: #dbdad5;
+  --color-surface-bright: #fbf9f4;
+  --color-surface-variant: #e4e2dd;
+  --color-surface-tint: #7c554b;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f5f3ee;
+  --color-surface-container: #f0eee9;
+  --color-surface-container-high: #eae8e3;
+  --color-surface-container-highest: #e4e2dd;
+  --color-on-surface: #1b1c19;
+  --color-on-surface-variant: #514441;
+  --color-inverse-surface: #30312e;
+  --color-inverse-on-surface: #f2f1ec;
+  --color-inverse-primary: #eebbae;
+  --color-outline: #837470;
+  --color-outline-variant: #d5c3be;
+
+  /* ── Primario — Walnut / Deep Oak ────────────────────────── */
+  --color-primary: #44241c;
+  --color-primary-container: #5d3a31;
+  --color-primary-fixed: #ffdbd2;
+  --color-primary-fixed-dim: #eebbae;
+  --color-primary-on-fixed: #2f140d;
+  --color-primary-on-fixed-variant: #613e35;
+  --color-primary-on-container: #d5a598;
+  --color-on-primary: #ffffff;
+
+  /* ── Secundario — Teak / Mid-Tone ────────────────────────── */
+  --color-secondary: #7c5730;
+  --color-secondary-container: #fdcb9b;
+  --color-secondary-fixed: #ffdcbd;
+  --color-secondary-fixed-dim: #eebd8e;
+  --color-secondary-on-fixed: #2c1600;
+  --color-secondary-on-fixed-variant: #61401b;
+  --color-secondary-on-container: #79542d;
+  --color-on-secondary: #ffffff;
+
+  /* ── Terciario — Cedar / Dark ────────────────────────────── */
+  --color-tertiary: #372b1e;
+  --color-tertiary-container: #4e4133;
+  --color-tertiary-fixed: #f4dfcb;
+  --color-tertiary-fixed-dim: #d7c3b0;
+  --color-tertiary-on-fixed: #241a0e;
+  --color-tertiary-on-fixed-variant: #524436;
+  --color-tertiary-on-container: #c0ad9b;
+  --color-on-tertiary: #ffffff;
+
+  /* ── Error ───────────────────────────────────────────────── */
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-error-on-container: #93000a;
+  --color-on-error: #ffffff;
+
+  /* ── Background ──────────────────────────────────────────── */
+  --color-background: #fbf9f4;
+  --color-on-background: #1b1c19;
+
+  /* ── Estados de pedido ───────────────────────────────────── */
+  --color-status-recibido: #e8f4fd;
+  --color-status-recibido-text: #1565c0;
+  --color-status-recibido-border: #90caf9;
+  --color-status-en-proceso: #fff8e1;
+  --color-status-en-proceso-text: #f57f17;
+  --color-status-en-proceso-border: #ffe082;
+  --color-status-preparando: #fff3e0;
+  --color-status-preparando-text: #e65100;
+  --color-status-preparando-border: #ffcc02;
+  --color-status-listo: #e8f5e9;
+  --color-status-listo-text: #2e7d32;
+  --color-status-listo-border: #a5d6a7;
+  --color-status-entregado: #f3e5f5;
+  --color-status-entregado-text: #6a1b9a;
+  --color-status-entregado-border: #ce93d8;
+  --color-status-cancelado: #ffebee;
+  --color-status-cancelado-text: #c62828;
+  --color-status-cancelado-border: #ef9a9a;
+
+  /* ── Sombras ─────────────────────────────────────────────── */
+  --shadow-card: 0 2px 12px -1px rgba(68, 36, 28, 0.06);
+  --shadow-card-hover: 0 8px 30px -4px rgba(68, 36, 28, 0.14);
+  --shadow-organic: 0 4px 20px -2px rgba(68, 36, 28, 0.08);
+  --shadow-drawer: -4px 0 40px rgba(68, 36, 28, 0.12);
+  --shadow-modal: 0 20px 60px rgba(68, 36, 28, 0.20);
+  --shadow-admin: 0 1px 4px rgba(68, 36, 28, 0.08);
+
+  /* ── Animaciones ─────────────────────────────────────────── */
+  --animate-slide-in-right: slide-in-right 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-slide-out-right: slide-out-right 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-fade-in-up: fade-in-up 0.3s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+  --animate-shimmer: shimmer 1.8s linear infinite;
+
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-out-right {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+
+    to {
+      background-position: 200% 0;
+    }
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* ═══════════════════════════════════════════════════════════════
+   GOOGLE FONTS
+═══════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-manrope);
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-libre);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-primary);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-container);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+::selection {
+  background-color: var(--color-primary-fixed);
+  color: var(--color-primary-on-fixed);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   COMPONENTES
+═══════════════════════════════════════════════════════════════ */
+
+.container-madevic {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+@media (min-width: 768px) {
+  .container-madevic {
+    padding-inline: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-madevic {
+    padding-inline: 64px;
+  }
+}
+
+.section {
+  padding-block: 3rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: 6rem;
+  }
+}
+
+.card {
+  background-color: var(--color-surface-container-lowest);
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-outline-variant);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 300ms ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ── Botones ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  font-family: var(--font-manrope);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 150ms cubic-bezier(0.32, 0.72, 0, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.btn-md {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.btn-primary:not(:disabled):hover {
+  background-color: var(--color-primary-container);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary-container);
+  color: var(--color-secondary-on-container);
+}
+
+.btn-secondary:not(:disabled):hover {
+  background-color: var(--color-secondary-fixed-dim);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-on-surface);
+}
+
+.btn-ghost:not(:disabled):hover {
+  background-color: var(--color-surface-container);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+.btn-outline:not(:disabled):hover {
+  background-color: var(--color-primary-fixed);
+}
+
+.btn-danger {
+  background-color: var(--color-error);
+  color: var(--color-on-error);
+}
+
+.btn-danger:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+/* ── Inputs ──────────────────────────────────────────────── */
+.input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1.5px solid var(--color-outline-variant);
+  background-color: var(--color-surface-container-lowest);
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: var(--font-manrope);
+  color: var(--color-on-surface);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-on-surface-variant);
+  opacity: 0.7;
+}
+
+.input:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(124, 87, 48, 0.12);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  background-color: var(--color-surface-container);
+  cursor: not-allowed;
+}
+
+.input-error {
+  border-color: var(--color-error);
+}
+
+.input-error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(186, 26, 26, 0.12);
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-on-surface);
+  margin-bottom: 0.375rem;
+}
+
+.label-error {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-error);
+  margin-top: 0.25rem;
+}
+
+/* ── Skeleton ────────────────────────────────────────────── */
+.skeleton {
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg,
+      var(--color-surface-container) 25%,
+      var(--color-surface-dim) 50%,
+      var(--color-surface-container) 75%);
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* ── Overlay ─────────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(27, 28, 25, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  animation: var(--animate-fade-in);
+}
+
+/* ── Badges de estado ────────────────────────────────────── */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.badge-recibido {
+  background: var(--color-status-recibido);
+  color: var(--color-status-recibido-text);
+  border-color: var(--color-status-recibido-border);
+}
+
+.badge-en-proceso {
+  background: var(--color-status-en-proceso);
+  color: var(--color-status-en-proceso-text);
+  border-color: var(--color-status-en-proceso-border);
+}
+
+.badge-preparando {
+  background: var(--color-status-preparando);
+  color: var(--color-status-preparando-text);
+  border-color: var(--color-status-preparando-border);
+}
+
+.badge-listo {
+  background: var(--color-status-listo);
+  color: var(--color-status-listo-text);
+  border-color: var(--color-status-listo-border);
+}
+
+.badge-entregado {
+  background: var(--color-status-entregado);
+  color: var(--color-status-entregado-text);
+  border-color: var(--color-status-entregado-border);
+}
+
+.badge-cancelado {
+  background: var(--color-status-cancelado);
+  color: var(--color-status-cancelado-text);
+  border-color: var(--color-status-cancelado-border);
+}
+
+/* ── Tabla admin ─────────────────────────────────────────── */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.admin-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface-container);
+}
+
+.admin-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-outline-variant);
+  color: var(--color-on-surface);
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tbody tr {
+  transition: background-color 100ms ease;
+}
+
+.admin-table tbody tr:hover {
+  background-color: var(--color-surface-container-low);
+}
+
+/* ── Kanban ──────────────────────────────────────────────── */
+.kanban-column {
+  min-height: 200px;
+  transition: background-color 150ms ease;
+}
+
+.kanban-column.is-over {
+  background-color: var(--color-surface);
+}
+
+.dnd-dragging {
+  opacity: 0.5;
+  cursor: grabbing !important;
+}
+
+.dnd-over {
+  outline: 2px dashed var(--color-secondary);
+  outline-offset: 2px;
+  border-radius: 0.75rem;
+}
+
+/* ── Utilidades ──────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-libre);
+}
+
+.gradient-madevic {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+}
+
+.bg-wood-pattern {
+  background-color: var(--color-surface);
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 2px,
+      rgba(68, 36, 28, 0.02) 2px, rgba(68, 36, 28, 0.02) 4px);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ── Toast ───────────────────────────────────────────────── */
+.toast-madevic {
+  font-family: var(--font-manrope) !important;
+  font-size: 0.875rem !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid var(--color-outline-variant) !important;
+  background: var(--color-surface-bright) !important;
+  color: var(--color-on-surface) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
