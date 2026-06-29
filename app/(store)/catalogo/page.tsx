@@ -89,7 +89,6 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
                         <CategoryFilter
                             categories={categories}
                             selected={params.categoria ?? null}
-                            onChange={() => { }}
                         />
                     </Suspense>
 

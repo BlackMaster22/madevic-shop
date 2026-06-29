@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
     images: {
         remotePatterns: [
             {
@@ -31,16 +30,7 @@ const nextConfig: NextConfig = {
             },
         ];
     },
-
-    async redirects() {
-        return [
-            {
-                source: "/admin",
-                destination: "/admin/dashboard",
-                permanent: false,
-            },
-        ];
-    },
+    // Eliminar el bloque redirects completamente
 };
 
-export default nextConfig;
+module.exports = nextConfig;
